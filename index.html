@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Smart Land — حلول تقنية عالمية</title>
+<style>
+  :root{
+    --bg-1:#eef2ff;
+    --bg-2:#fff7f2;
+    --primary-1:#1e3a8a;
+    --primary-2:#06b6d4;
+    --accent:#f59e0b;
+    --muted:#1f2937;
+    --card:rgba(255,255,255,0.96);
+    --border:rgba(0,0,0,0.06);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Tahoma,Arial,"Noto Naskh Arabic",sans-serif;
+    color:var(--muted);
+    direction:rtl;
+    background:linear-gradient(180deg,var(--bg-1) 0%,var(--bg-2) 100%);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  header{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;padding:28px 18px 14px;position:relative;
+  }
+  .logo-circle{
+    width:120px;height:120px;border-radius:999px;
+    background:conic-gradient(from 210deg,var(--primary-1),var(--primary-2),var(--accent),var(--primary-1));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:900;font-size:26px;letter-spacing:2px;
+    box-shadow:0 18px 45px rgba(30,58,138,0.28),0 0 0 6px rgba(255,255,255,0.55) inset;
+    animation:float 4s ease-in-out infinite;
+  }
+  .logo-circle span{background:rgba(0,0,0,0.18);padding:8px 14px;border-radius:14px}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  .logo-sub{font-size:13px;color:rgba(0,0,0,0.55);letter-spacing:1px}
+
+  nav.tabs{
+    display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+    margin:12px auto 0;max-width:1000px;padding:0 16px;
+  }
+  .tab-btn{
+    appearance:none;border:0;padding:10px 18px;border-radius:30px;
+    font-weight:800;font-size:14px;cursor:pointer;color:var(--primary-1);
+    background:rgba(255,255,255,0.75);border:1px solid rgba(30,58,138,0.12);
+    transition:all .25s ease;
+  }
+  .tab-btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(30,58,138,0.12)}
+  .tab-btn.active{
+    color:#fff;background:linear-gradient(90deg,var(--primary-1),var(--primary-2));
+    box-shadow:0 12px 26px rgba(30,58,138,0.28);
+  }
+
+  main{max-width:1180px;margin:18px auto 50px;padding:0 16px}
+
+  .panel{
+    background:var(--card);padding:20px;border-radius:16px;
+    border:1px solid var(--border);
+    box-shadow:0 14px 40px rgba(5,20,40,0.06);
+  }
+  .tab-content{display:none;animation:fade .4s ease}
+  .tab-content.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  h1,h2,h3{margin:0 0 10px;color:var(--primary-1)}
+  h1{font-size:26px}
+  h2{font-size:22px}
+  p{line-height:1.85;color:rgba(0,0,0,0.78);margin:0 0 12px}
+
+  .hero-grid{
+    display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:center;
+  }
+  .hero-img{
+    width:100%;height:280px;border-radius:16px;object-fit:cover;
+    box-shadow:0 18px 40px rgba(30,58,138,0.18);
+  }
+
+  .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+  .stat{
+    flex:1;min-width:120px;background:linear-gradient(180deg,#fff,#f0f6ff);
+    border-radius:12px;padding:12px;text-align:center;border:1px solid rgba(30,58,138,0.08);
+  }
+  .stat b{display:block;font-size:22px;color:var(--primary-2)}
+  .stat span{font-size:12px;color:rgba(0,0,0,0.6)}
+
+  .btn{
+    appearance:none;border:0;padding:11px 18px;border-radius:12px;font-weight:800;
+    cursor:pointer;color:#fff;
+    background:linear-gradient(90deg,var(--primary-1),var(--primary-2));
+    box-shadow:0 12px 26px rgba(30,58,138,0.22);
+    transition:transform .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn.ghost{background:transparent;color:var(--primary-1);border:1px solid rgba(30,58,138,0.2);box-shadow:none}
+  .btn.gold{background:linear-gradient(90deg,var(--accent),#ef4444)}
+
+  .branches-wrap{
+    display:grid;grid-template-columns:260px 1fr;gap:18px;margin-top:20px;
+  }
+  .branch-list{
+    display:flex;flex-direction:column;gap:10px;
+    background:linear-gradient(180deg,#fff,#f5f9ff);
+    border:1px solid var(--border);border-radius:16px;padding:14px;
+    box-shadow:0 10px 30px rgba(5,20,40,0.05);
+    position:sticky;top:20px;height:fit-content;
+  }
+  .branch-list h3{font-size:16px;margin-bottom:4px;text-align:center}
+  .branch-btn{
+    appearance:none;border:1px solid rgba(30,58,138,0.12);
+    background:#fff;padding:12px;border-radius:12px;cursor:pointer;
+    font-weight:700;color:var(--muted);text-align:right;
+    display:flex;align-items:center;gap:8px;transition:all .25s ease;
+  }
+  .branch-btn:hover{transform:translateX(-4px);border-color:var(--primary-2)}
+  .branch-btn.active{
+    background:linear-gradient(90deg,var(--primary-1),var(--primary-2));
+    color:#fff;box-shadow:0 12px 26px rgba(30,58,138,0.25);
+  }
+  .branch-btn .flag{font-size:18px}
+
+  .branch-detail{display:none;animation:fade .4s ease}
+  .branch-detail.active{display:block}
+
+  .services-strip{
+    display:flex;gap:10px;overflow-x:auto;padding:12px;margin-top:14px;
+    background:linear-gradient(90deg,#f0f6ff,#fff7f2);
+    border-radius:14px;border:1px dashed rgba(30,58,138,0.18);
+  }
+  .service-pill{
+    flex:0 0 auto;padding:10px 16px;border-radius:30px;font-weight:700;font-size:13px;
+    background:#fff;color:var(--primary-1);border:1px solid rgba(30,58,138,0.12);
+    white-space:nowrap;
+  }
+
+  .gallery4{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px;
+  }
+  .gallery4 figure{
+    margin:0;border-radius:14px;overflow:hidden;position:relative;
+    box-shadow:0 12px 28px rgba(5,20,40,0.12);
+    transition:transform .35s ease,box-shadow .35s ease;
+    cursor:pointer;
+  }
+  .gallery4 figure:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 22px 46px rgba(30,58,138,0.28)}
+  .gallery4 img{width:100%;height:160px;object-fit:cover;display:block;transition:transform .6s ease}
+  .gallery4 figure:hover img{transform:scale(1.1)}
+  .gallery4 figcaption{
+    position:absolute;inset:auto 0 0 0;padding:8px;color:#fff;font-size:12px;font-weight:700;
+    background:linear-gradient(180deg,transparent,rgba(0,0,0,0.75));
+  }
+
+  .video-card{
+    margin-top:18px;border-radius:16px;overflow:hidden;
+    border:1px solid var(--border);background:#000;
+    box-shadow:0 18px 45px rgba(0,0,0,0.18);
+  }
+  .video-card video{width:100%;height:auto;display:block;max-height:460px;object-fit:cover}
+  .video-placeholder{
+    display:none;align-items:center;justify-content:center;flex-direction:column;
+    height:260px;color:#fff;background:linear-gradient(135deg,#1e3a8a,#06b6d4);
+    text-align:center;padding:20px;
+  }
+  .video-placeholder p{color:#fff;margin:8px 0 0;font-size:14px}
+
+  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:90;padding:18px}
+  .lightbox.active{display:flex}
+  .lightbox .box{width:100%;max-width:1000px;background:#000;border-radius:14px;overflow:hidden;position:relative}
+  .lightbox img,.lightbox video{width:100%;height:auto;display:block;max-height:85vh;object-fit:contain}
+  .lightbox .close{position:absolute;top:12px;left:12px;background:rgba(255,255,255,0.95);border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:900;border:0}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}
+  .contact-card{
+    background:linear-gradient(180deg,#fff,#f0f6ff);border-radius:14px;padding:16px;
+    border:1px solid rgba(30,58,138,0.08);
+  }
+  .contact-card b{color:var(--primary-1);display:block;margin-bottom:6px}
+
+  footer{text-align:center;padding:22px;color:rgba(0,0,0,0.5);font-size:13px}
+
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr}
+    .branches-wrap{grid-template-columns:1fr}
+    .branch-list{position:static;flex-direction:row;flex-wrap:wrap;justify-content:center}
+    .branch-btn{flex:1 1 45%}
+    .gallery4{grid-template-columns:repeat(2,1fr)}
+    .contact-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:520px){
+    .gallery4{grid-template-columns:1fr}
+    .logo-circle{width:100px;height:100px;font-size:22px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-circle" aria-hidden="true"><span>SL</span></div>
+  <div class="logo-sub">Smart Land — حلول تقنية عالمية منذ 2011</div>
+</header>
+
+<nav class="tabs" id="mainTabs">
+  <button class="tab-btn active" data-tab="about">من نحن</button>
+  <button class="tab-btn" data-tab="branches">منصات الشركة</button>
+  <button class="tab-btn" data-tab="projects">مشاريعنا</button>
+  <button class="tab-btn" data-tab="contact">تواصل معنا</button>
+</nav>
+
+<main>
+
+  <!-- ============ ABOUT TAB ============ -->
+  <section class="tab-content active" id="tab-about">
+    <div class="panel hero-grid">
+      <div>
+        <h1>شركة Smart Land — حيث تلتقي التقنية بالذكاء الاصطناعي</h1>
+        <p>
+          تأسست شركة <b>Smart Land</b> عام <b>2011</b> كشركة استشارات وحلول تقنية عالمية،
+          تسعى إلى تقديم حلول برمجية متطورة ومخصصة تلبي احتياجات قطاعات مختلفة،
+          مع دمج الذكاء الاصطناعي في صميم عملياتها. نؤمن أن التقنية ليست غاية، بل وسيلة
+          لصناعة تجارب أنسانية أذكى وأسهل.
+        </p>
+        <p>
+          يقود الشركة نخبة من المؤسسين ذوي الخبرة العالمية في هندسة البرمجيات والذكاء الاصطناعي،
+          وقد نجحنا على مدى أكثر من عقد في بناء محفظة مشاريع نوعية تخدم الصحة، التعليم،
+          التجارة الإلكترونية، والعقار.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>+14</b><span>سنة خبرة</span></div>
+          <div class="stat"><b>+20</b><span>مشروع ناجح</span></div>
+          <div class="stat"><b>+8</b><span>دول حول العالم</span></div>
+          <div class="stat"><b>+50</b><span>خبير ومطور</span></div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" onclick="document.querySelector('[data-tab=projects]').click()">استعرض مشاريعنا</button>
+          <button class="btn ghost" onclick="document.querySelector('[data-tab=branches]').click()">تعرف على منصاتنا</button>
+        </div>
+      </div>
+      <div>
+        <img class="hero-img" src="1.avif" alt="فريق Smart Land">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BRANCHES TAB ============ -->
+  <section class="tab-content" id="tab-branches">
+    <div class="panel">
+      <h2>أبرز المنصات في الشركة</h2>
+      <p>اختر المنصة من القائمة الجانبية لعرض خدماتها ومعرض صورها والفيديو التعريفي الخاص بها.</p>
+
+      <div class="branches-wrap">
+        <aside class="branch-list">
+          <h3>قائمة المنصات</h3>
+          <button class="branch-btn active" data-branch="damascus"><span class="flag"></span> Smart Signal</button>
+          <button class="branch-btn" data-branch="dubai"><span class="flag"></span> MyKey</button>
+          <button class="branch-btn" data-branch="riyadh"><span class="flag"></span> Sada</button>
+          <button class="branch-btn" data-branch="istanbul"><span class="flag"></span> Welcome</button>
+        </aside>
+
+        <div>
+
+          <!-- Smart Signal -->
+          <div class="branch-detail active" id="branch-damascus">
+            <h2> Smart Signal — ترجمة لغة الإشارة</h2>
+            <p>تطبيق ذكي يعتمد على الذكاء الاصطناعي لترجمة لغة الإشارة إلى نص وصوت، مما يسهل التواصل بين الصم وضعاف السمع وبقية المجتمع في مختلف المواقف الحياتية.</p>
+            <div class="services-strip">
+              <div class="service-pill">ترجمة فورية</div>
+              <div class="service-pill">ذكاء اصطناعي</div>
+              <div class="service-pill">تعرف على الإيماءات</div>
+              <div class="service-pill">دعم متعدد اللغات</div>
+              <div class="service-pill">إمكانية الوصول</div>
+            </div>
+            <div class="gallery4">
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="6.avif" alt="Smart Signal 1"><figcaption>واجهة التطبيق</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="7.avif" alt="Smart Signal 2"><figcaption>ترجمة الإشارة</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="8.avif" alt="Smart Signal 3"><figcaption>الذكاء الاصطناعي</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="9.avif" alt="Smart Signal 4"><figcaption>تجربة المستخدم</figcaption></figure>
+            </div>
+          </div>
+
+          <!-- MyKey -->
+          <div class="branch-detail" id="branch-dubai">
+            <h2>MyKey — منصة العقارات والمركبات</h2>
+            <p>منصة إعلانية متكاملة لعرض العقارات والمركبات للبيع والإيجار، مع أدوات بحث متقدمة وتواصل مباشر بين البائع والمشتري.</p>
+            <div class="services-strip">
+              <div class="service-pill">إعلانات عقارية</div>
+              <div class="service-pill">إعلانات مركبات</div>
+              <div class="service-pill">بحث متقدم</div>
+              <div class="service-pill">تواصل مباشر</div>
+              <div class="service-pill">لوحة تحكم</div>
+            </div>
+            <div class="gallery4">
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="10.avif" alt="MyKey 1"><figcaption>واجهة المنصة</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="11.avif" alt="MyKey 2"><figcaption>العقارات</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="12.avif" alt="MyKey 3"><figcaption>المركبات</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="13.avif" alt="MyKey 4"><figcaption>لوحة التحكم</figcaption></figure>
+            </div>
+          </div>
+
+          <!-- Sada -->
+          <div class="branch-detail" id="branch-riyadh">
+            <h2> Sada — منصة التعلم عن بُعد</h2>
+            <p>منصة تعليمية متكاملة تتيح للطلاب والمدرسين إدارة الدورات والاختبارات والمواد التفاعلية، مع دعم كامل للفصول الافتراضية.</p>
+            <div class="services-strip">
+              <div class="service-pill">فصول افتراضية</div>
+              <div class="service-pill">دورات تفاعلية</div>
+              <div class="service-pill">اختبارات إلكترونية</div>
+              <div class="service-pill">تقارير أداء</div>
+              <div class="service-pill">دعم متعدد الأجهزة</div>
+            </div>
+            <div class="gallery4">
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="14.avif" alt="Sada 1"><figcaption>واجهة المنصة</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="15.avif" alt="Sada 2"><figcaption>الدورات</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="16.avif" alt="Sada 3"><figcaption>الفصول الافتراضية</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="17.avif" alt="Sada 4"><figcaption>التقارير</figcaption></figure>
+            </div>
+          </div>
+
+          <!-- Welcome -->
+          <div class="branch-detail" id="branch-istanbul">
+            <h2> Welcome — تسوق إلكتروني متعدد المتاجر</h2>
+            <p>تطبيق تسوق إلكتروني يجمع متاجر متعددة في منصة واحدة، مع تجربة شراء سلسة وتتبع مباشر للطلبات وعروض حصرية.</p>
+            <div class="services-strip">
+              <div class="service-pill">متاجر متعددة</div>
+              <div class="service-pill">دفع إلكتروني</div>
+              <div class="service-pill">تتبع الطلبات</div>
+              <div class="service-pill">عروض حصرية</div>
+              <div class="service-pill">تطبيق جوال</div>
+            </div>
+            <div class="gallery4">
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="18.avif" alt="Welcome 1"><figcaption>واجهة التطبيق</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="19.avif" alt="Welcome 2"><figcaption>المتاجر</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="20.avif" alt="Welcome 3"><figcaption>الدفع</figcaption></figure>
+              <figure onclick="openImageLightbox(this.querySelector('img').src)"><img src="21.avif" alt="Welcome 4"><figcaption>تتبع الطلبات</figcaption></figure>
+            </div>
+          </div>
+
+          <!-- Video button -->
+          <div style="margin-top:20px;text-align:center">
+            <button class="btn gold" id="btnBranchVideo">🎬 شاهد الفيديو التعريفي لمنصاتنا</button>
+          </div>
+
+          <div class="video-card" id="branchVideoWrap" style="display:none">
+            <video id="branchVideo" controls playsinline preload="metadata" poster="1.avif">
+              <source src="ab.mp4" type="video/mp4">
+              <source src="smartland.webm" type="video/webm">
+              متصفحك لا يدعم تشغيل الفيديو.
+            </video>
+            <div class="video-placeholder" id="videoPlaceholder">
+              <h3 style="color:#fff;margin:0">🎥 الفيديو التعريفي</h3>
+              <p>لم يتم العثور على ملف الفيديو، يمكنك إضافة smartland.mp4 إلى مجلد المشروع.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS TAB ============ -->
+  <section class="tab-content" id="tab-projects">
+    <div class="panel">
+      <h2>مشاريعنا وقصص نجاحنا </h2>
+      <p>محفظة مشاريع Smart Land تضم تطبيقات ومنصات نوعية تخدم قطاعات حيوية متعددة:</p>
+
+      <!-- من اليمين لليسار، من الأعلى للأسفل: 2,3,4,5 -->
+      <div class="gallery4" style="grid-template-columns:repeat(2,1fr)">
+        <figure onclick="openImageLightbox(this.querySelector('img').src)">
+          <img src="2.avif" alt="Smart Signal">
+          <figcaption>Smart Signal — ترجمة لغة الإشارة</figcaption>
+        </figure>
+        <figure onclick="openImageLightbox(this.querySelector('img').src)">
+          <img src="3.avif" alt="MyKey">
+          <figcaption>MyKey — منصة العقارات والمركبات</figcaption>
+        </figure>
+        <figure onclick="openImageLightbox(this.querySelector('img').src)">
+          <img src="4.avif" alt="Sada">
+          <figcaption>Sada — منصة التعلم عن بُعد</figcaption>
+        </figure>
+        <figure onclick="openImageLightbox(this.querySelector('img').src)">
+          <img src="5.avif" alt="Welcome">
+          <figcaption>Welcome — تسوق إلكتروني متعدد المتاجر</figcaption>
+        </figure>
+      </div>
+
+      <p style="margin-top:16px">
+        بالإضافة إلى ذلك، طورت الشركة أنظمة إدارة المشافي، وحلولاً مخصصة للقطاع التعليمي،
+        ومنصات ذكاء اصطناعي لتحليل البيانات واتخاذ القرار. كل مشروع هو قصة نجاح بدأت بفكرة
+        وانتهت بأثر حقيقي في حياة المستخدمين.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT TAB ============ -->
+  <section class="tab-content" id="tab-contact">
+    <div class="panel">
+      <h2>تواصل معنا 📞</h2>
+      <p>يسعدنا تواصلك معنا في أي وقت، فريقنا جاهز للإجابة على استفساراتك ومساعدتك في مشروعك القادم.</p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <b>📍 المقر الرئيسي</b>
+          دمشق — سوريا، شارع التقنية، بناء Smart Land
+        </div>
+        <div class="contact-card">
+          <b>📧 البريد الإلكتروني</b>
+          info@smartland.com
+        </div>
+        <div class="contact-card">
+          <b>📱 الهاتف</b>
+          +963 11 000 0000
+        </div>
+        <div class="contact-card">
+          <b>🌐 الموقع الإلكتروني</b>
+          www.smartland.com
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2011 - 2025 Smart Land — جميع الحقوق محفوظة</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-hidden="true">
+  <div class="box">
+    <button class="close" id="lbClose">إغلاق ✕</button>
+    <div id="lbInner"></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  document.querySelectorAll('.branch-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.branch-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.branch-detail').forEach(d=>d.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('branch-'+btn.dataset.branch).classList.add('active');
+    });
+  });
+
+  const btnBranchVideo = document.getElementById('btnBranchVideo');
+  const branchVideoWrap = document.getElementById('branchVideoWrap');
+  const branchVideo = document.getElementById('branchVideo');
+  const videoPlaceholder = document.getElementById('videoPlaceholder');
+
+  btnBranchVideo.addEventListener('click',()=>{
+    branchVideoWrap.style.display='block';
+    branchVideoWrap.scrollIntoView({behavior:'smooth',block:'center'});
+    branchVideo.play().catch(()=>{});
+    branchVideo.addEventListener('error',()=>{
+      branchVideo.style.display='none';
+      videoPlaceholder.style.display='flex';
+    },{once:true});
+  });
+
+  const lb = document.getElementById('lightbox');
+  const lbInner = document.getElementById('lbInner');
+  const lbClose = document.getElementById('lbClose');
+
+  function openImageLightbox(src){
+    lbInner.innerHTML = '<img src="'+src+'" alt="صورة">';
+    lb.classList.add('active');
+    document.body.style.overflow='hidden';
+  }
+  window.openImageLightbox = openImageLightbox;
+
+  function closeLightbox(){
+    lb.classList.remove('active');
+    lbInner.innerHTML='';
+    document.body.style.overflow='';
+  }
+  lbClose.addEventListener('click',closeLightbox);
+  lb.addEventListener('click',e=>{if(e.target===lb)closeLightbox();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+</script>
+</body>
+</html>
